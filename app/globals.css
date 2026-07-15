@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+@theme {
+  /* Definimos tus colores personalizados para la v4 */
+  --color-background: #0a0c14;
+  --color-card-bg: #161925;
+  --color-accent: #2563eb; /* Azul RAVA */
+}
+
+:root {
+  background-color: var(--color-background);
+  color: white;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Regla de oro para el box-sizing */
+* {
+  box-sizing: border-box;
+}
