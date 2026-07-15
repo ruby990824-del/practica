@@ -1,23 +1,132 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 @import "tailwindcss";
 
+/* ============================================================
+   SISTEMA DE DISEÑO — Tema oscuro moderno (estilo SaaS)
+   Paleta: fondo casi negro + acento lavanda/morado
+   ============================================================ */
 @theme {
-  /* Definimos tus colores personalizados para la v4 */
-  --color-background: #0a0c14;
-  --color-card-bg: #161925;
-  --color-accent: #2563eb; /* Azul RAVA */
+  --color-base:        #09090b;   /* fondo principal */
+  --color-panel:       #141418;   /* tarjetas / superficies */
+  --color-panel-2:     #1c1c22;   /* superficies elevadas */
+  --color-ink:         #fafafa;   /* texto principal */
+  --color-muted:       #8a8a94;   /* texto secundario */
+  --color-line:        rgba(255, 255, 255, 0.08); /* bordes sutiles */
+  --color-brand:       #8b7bf7;   /* acento morado */
+  --color-brand-soft:  #a99bff;   /* acento lavanda claro (texto) */
+  --color-brand-deep:  #6d5df0;   /* acento morado profundo (hover) */
+
+  --radius-card: 1.75rem;
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
 }
 
 :root {
-  background-color: var(--color-background);
-  color: white;
+  background-color: var(--color-base);
+  color: var(--color-ink);
+  color-scheme: dark;
 }
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
 
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-sans);
+  background-color: var(--color-base);
+  color: var(--color-ink);
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Resplandor morado sutil arriba, como en la referencia */
+  background-image:
+    radial-gradient(60rem 40rem at 50% -10rem, rgba(139, 123, 247, 0.18), transparent 60%),
+    radial-gradient(50rem 30rem at 85% 5rem, rgba(109, 93, 240, 0.10), transparent 55%);
+  background-attachment: fixed;
 }
 
-/* Regla de oro para el box-sizing */
-* {
-  box-sizing: border-box;
+::selection {
+  background: rgba(139, 123, 247, 0.35);
+  color: #fff;
+}
+
+/* Scrollbar discreta */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.16); }
+
+/* ============================================================
+   Componentes reutilizables
+   ============================================================ */
+@layer components {
+  /* Tarjeta base oscura con borde sutil */
+  .card {
+    background-color: var(--color-panel);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-card);
+  }
+
+  /* Botón primario — pill morado */
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background: linear-gradient(180deg, var(--color-brand), var(--color-brand-deep));
+    color: #fff;
+    font-weight: 600;
+    border-radius: 999px;
+    padding: 0.85rem 1.6rem;
+    box-shadow: 0 8px 24px -8px rgba(139, 123, 247, 0.6);
+    transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+  }
+  .btn-primary:hover { filter: brightness(1.08); transform: translateY(-1px); box-shadow: 0 12px 30px -8px rgba(139, 123, 247, 0.75); }
+
+  /* Botón secundario — pill con borde (ghost) */
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.03);
+    color: var(--color-ink);
+    font-weight: 600;
+    border: 1px solid var(--color-line);
+    border-radius: 999px;
+    padding: 0.85rem 1.6rem;
+    transition: background .2s ease, border-color .2s ease;
+  }
+  .btn-ghost:hover { background: rgba(255, 255, 255, 0.07); border-color: rgba(255,255,255,0.18); }
+
+  /* CTA con borde lavanda (nav) */
+  .btn-outline-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--color-ink);
+    font-weight: 600;
+    border: 1px solid rgba(139, 123, 247, 0.5);
+    border-radius: 999px;
+    padding: 0.6rem 1.2rem;
+    background: rgba(139, 123, 247, 0.08);
+    transition: background .2s ease, border-color .2s ease;
+  }
+  .btn-outline-brand:hover { background: rgba(139, 123, 247, 0.18); border-color: rgba(139,123,247,0.8); }
+
+  /* Chip / etiqueta pequeña */
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--color-brand-soft);
+    background: rgba(139, 123, 247, 0.10);
+    border: 1px solid rgba(139, 123, 247, 0.25);
+    border-radius: 999px;
+    padding: 0.35rem 0.85rem;
+  }
 }

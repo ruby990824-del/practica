@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
 export default function Inicio() {
@@ -24,8 +23,8 @@ export default function Inicio() {
   ];
 
   const [cantidades, setCantidades] = useState<{ [key: string]: number }>({
-    split: 0, freidora: 0, horno: 0, congelador: 0, refrigerador: 0, 
-    refrigerador_viejo: 0, bomba: 0, microondas: 0, pc_oficina: 0, 
+    split: 0, freidora: 0, horno: 0, congelador: 0, refrigerador: 0,
+    refrigerador_viejo: 0, bomba: 0, microondas: 0, pc_oficina: 0,
     televisor: 0, bombillos: 0, ventilador: 0,
   });
 
@@ -69,93 +68,166 @@ export default function Inicio() {
     window.open(`https://api.whatsapp.com/send?phone=+5353863297&text=${encodeURIComponent(mensaje)}`, '_blank');
   };
 
+  const stats = [
+    { valor: '+120', etiqueta: 'Sistemas instalados' },
+    { valor: '99%', etiqueta: 'Uptime energético' },
+    { valor: '24/7', etiqueta: 'Soporte técnico' },
+    { valor: 'IA', etiqueta: 'Cálculo instantáneo' },
+  ];
+
   return (
-    <div className="min-h-screen pb-20 font-sans bg-transparent text-inherit">
-      <section className="max-w-7xl mx-auto px-6 pt-12">
-        <div className="relative h-[500px] rounded-[3.5rem] overflow-hidden border shadow-2xl bg-white dark:bg-[#131622]">
-          <div className="relative z-20 h-full flex flex-col justify-center px-12 md:px-24">
-            <h1 className="text-5xl md:text-8xl font-black uppercase tracking-tighter mb-10 text-gray-900 dark:text-white">
-              POTENCIA SIN <br/> <span className="italic text-blue-600 dark:text-[#ff9900]">INTERRUPCIONES.</span>
-            </h1>
-            <Link href="/tienda" className="w-fit bg-[#990000] text-white px-12 py-5 rounded-[1.5rem] font-bold uppercase text-[11px] tracking-widest">
-              Explorar Catálogo
-            </Link>
+    <div className="pb-28">
+
+      {/* ===================== HERO ===================== */}
+      <section className="max-w-5xl mx-auto px-6 pt-20 md:pt-28 text-center">
+        <div className="flex justify-center mb-8">
+          <span className="chip">
+            <span className="text-brand-soft">✦</span> Diseñador solar con IA — Nº1 en tu región
+          </span>
+        </div>
+
+        <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight leading-[1.05] text-ink">
+          Energía solar que{' '}
+          <span className="text-brand-soft">nunca se apaga</span>
+        </h1>
+
+        <p className="mt-7 max-w-2xl mx-auto text-lg text-muted leading-relaxed">
+          Diseña tu sistema fotovoltaico en segundos. Nuestra IA calcula inversor,
+          paneles, cableado y autonomía a la medida exacta de tus equipos.
+        </p>
+
+        <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a href="#configurador" className="btn-primary text-base">
+            Calcular mi sistema
+          </a>
+          <Link href="/tienda" className="btn-ghost text-base">
+            Explorar catálogo
+          </Link>
+        </div>
+
+        {/* prueba social */}
+        <div className="mt-10 flex items-center justify-center gap-3 text-sm text-muted">
+          <div className="flex -space-x-2">
+            {['#8b7bf7', '#6d5df0', '#a99bff', '#7c6bf5'].map((c, i) => (
+              <span key={i} className="w-7 h-7 rounded-full border-2 border-base" style={{ background: c }} />
+            ))}
           </div>
+          <span>
+            <span className="text-brand-soft">★★★★★</span> +120 clientes con energía sin cortes
+          </span>
         </div>
       </section>
 
-      <section className="max-w-7xl mx-auto px-6 mt-24">
-        <div className="border rounded-[3.5rem] p-8 md:p-12 shadow-2xl bg-white border-gray-200 dark:bg-[#131622] dark:border-white/5">
-          <h2 className="text-4xl font-black uppercase italic tracking-tighter mb-10">Configurador de Carga</h2>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+      {/* ===================== STATS (tarjetas oscuras) ===================== */}
+      <section className="max-w-6xl mx-auto px-6 mt-20">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {stats.map((s) => (
+            <div key={s.etiqueta} className="card p-6 flex flex-col gap-1 hover:border-brand/40 transition-colors">
+              <span className="text-3xl font-extrabold text-ink">{s.valor}</span>
+              <span className="text-sm text-muted">{s.etiqueta}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ===================== CONFIGURADOR ===================== */}
+      <section id="configurador" className="max-w-6xl mx-auto px-6 mt-24 scroll-mt-24">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight">
+            Configura tu <span className="text-brand-soft">carga</span>
+          </h2>
+          <p className="mt-4 text-muted max-w-xl mx-auto">
+            Selecciona tus equipos y deja que la IA dimensione tu sistema ideal.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+          {/* Lista de equipos */}
+          <div className="card p-6 md:p-8">
+            <h3 className="text-xs font-semibold uppercase tracking-wider text-muted mb-6">Equipos a alimentar</h3>
             <div className="space-y-3">
               {tablaCargas.map((equipo) => (
-                <div key={equipo.id} className="flex items-center justify-between border rounded-[2rem] p-5 bg-[#f8f9fa] dark:bg-[#07090e]">
-                  <h4 className="text-xs font-black uppercase">{equipo.nombre}</h4>
-                  <div className="flex items-center gap-4">
-                    <button onClick={() => ajustarCantidad(equipo.id, -1)} className="w-8 h-8 border rounded-xl">-</button>
-                    <span className="font-mono font-black">{cantidades[equipo.id] ?? 0}</span>
-                    <button onClick={() => ajustarCantidad(equipo.id, 1)} className="w-8 h-8 border rounded-xl">+</button>
+                <div key={equipo.id} className="flex items-center justify-between gap-4 rounded-2xl border border-line bg-panel-2/60 p-4">
+                  <div className="min-w-0">
+                    <h4 className="text-sm font-medium text-ink truncate">{equipo.nombre}</h4>
+                    <span className="text-xs text-muted">{equipo.watts} W</span>
+                  </div>
+                  <div className="flex items-center gap-3 shrink-0">
+                    <button onClick={() => ajustarCantidad(equipo.id, -1)} className="w-8 h-8 grid place-items-center rounded-lg border border-line text-muted hover:text-ink hover:border-brand/50 transition cursor-pointer">−</button>
+                    <span className="w-6 text-center font-mono font-bold text-ink">{cantidades[equipo.id] ?? 0}</span>
+                    <button onClick={() => ajustarCantidad(equipo.id, 1)} className="w-8 h-8 grid place-items-center rounded-lg border border-line text-muted hover:text-ink hover:border-brand/50 transition cursor-pointer">+</button>
                   </div>
                 </div>
               ))}
             </div>
-
-            <div className="border rounded-[2.5rem] p-8 bg-[#f8f9fa] dark:bg-[#07090e]">
-              <h3 className="text-[10px] font-black uppercase mb-6">Resultados de la IA</h3>
-              <div className="text-2xl font-black mb-6">{wattsTotales} W</div>
-              {kitRosen ? (
-                <div className="space-y-6 border-t pt-6 mb-6">
-                  <div>
-                    <h4 className="text-xl font-black uppercase italic text-blue-600 dark:text-[#ff9900]">{kitRosen.base.nombre}</h4>
-                  </div>
-                  
-                  {/* Especificaciones técnicas */}
-                  <div className="bg-white dark:bg-[#131622] rounded-xl p-4 space-y-2">
-                    <h5 className="text-xs font-black uppercase text-gray-600 dark:text-gray-400 mb-3">⚡ ESPECIFICACIONES TÉCNICAS</h5>
-                    <ul className="text-xs space-y-2 font-mono">
-                      <li className="flex justify-between"><span>Inversor:</span> <span className="font-bold">{kitRosen.inversor}</span></li>
-                      <li className="flex justify-between"><span>Paneles:</span> <span className="font-bold">{kitRosen.paneles}</span></li>
-                      <li className="flex justify-between"><span>Cable:</span> <span className="font-bold">{kitRosen.cable}</span></li>
-                    </ul>
-                  </div>
-
-                  {/* Información de instalación */}
-                  <div className="bg-white dark:bg-[#131622] rounded-xl p-4 space-y-2">
-                    <h5 className="text-xs font-black uppercase text-gray-600 dark:text-gray-400 mb-3">📐 INSTALACIÓN</h5>
-                    <ul className="text-xs space-y-2 font-mono">
-                      <li className="flex justify-between"><span>Área de techo:</span> <span className="font-bold">{kitRosen.areaTecho}</span></li>
-                      <li className="flex justify-between"><span>Peso aprox:</span> <span className="font-bold">{kitRosen.peso}</span></li>
-                      <li className="flex justify-between"><span>Autonomía:</span> <span className="font-bold">{kitRosen.autonomia}</span></li>
-                    </ul>
-                  </div>
-
-                  {/* Consejos */}
-                  <div className="bg-blue-50 dark:bg-blue-950/20 rounded-xl p-4 border border-blue-200 dark:border-blue-800">
-                    <h5 className="text-xs font-black uppercase text-blue-900 dark:text-blue-300 mb-2">💡 CONSEJO TÉCNICO</h5>
-                    <p className="text-xs leading-relaxed text-blue-800 dark:text-blue-200 italic">{kitRosen.consejo}</p>
-                  </div>
-
-                  {/* Nota adicional */}
-                  {kitRosen.notaAdicional && (
-                    <div className="bg-amber-50 dark:bg-amber-950/20 rounded-xl p-4 border border-amber-200 dark:border-amber-800">
-                      <h5 className="text-xs font-black uppercase text-amber-900 dark:text-amber-300 mb-2">ℹ️ INFORMACIÓN IMPORTANTE</h5>
-                      <p className="text-xs leading-relaxed text-amber-800 dark:text-amber-200">{kitRosen.notaAdicional}</p>
-                    </div>
-                  )}
-
-                  <button onClick={enviarAWhatsApp} className="w-full text-[9px] underline text-[#990000] font-bold py-2 hover:bg-red-50 dark:hover:bg-red-950/20 rounded transition">Enviar este análisis a WhatsApp 📲</button>
-                </div>
-              ) : (
-                <p className="text-xs opacity-50 mb-8 italic">Selecciona tus cargas y presiona calcular para recibir una recomendación experta.</p>
-              )}
-              <button onClick={consultarIA} disabled={cargandoIA} className="w-full bg-[#990000] text-white px-6 py-4 rounded-xl font-black text-[10px] uppercase hover:bg-black transition-all">
-                {cargandoIA ? "ANALIZANDO CON IA..." : "CALCULAR SISTEMA 🚀"}
-              </button>
-            </div>
           </div>
+
+          {/* Panel de resultados */}
+          <div className="card p-6 md:p-8 h-fit lg:sticky lg:top-24">
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-xs font-semibold uppercase tracking-wider text-muted">Análisis de la IA</h3>
+              <span className="chip">en vivo</span>
+            </div>
+
+            <div className="rounded-2xl bg-gradient-to-br from-brand/15 to-transparent border border-brand/25 p-6 mb-6">
+              <span className="text-sm text-muted">Consumo total</span>
+              <div className="text-4xl font-extrabold text-ink mt-1">{wattsTotales.toLocaleString()} <span className="text-2xl text-brand-soft">W</span></div>
+            </div>
+
+            {kitRosen ? (
+              <div className="space-y-4 mb-6">
+                <h4 className="text-lg font-bold text-brand-soft">{kitRosen.base.nombre}</h4>
+
+                <div className="rounded-2xl border border-line bg-panel-2/60 p-5">
+                  <h5 className="text-xs font-semibold uppercase tracking-wider text-muted mb-3">⚡ Especificaciones</h5>
+                  <ul className="text-sm space-y-2">
+                    <li className="flex justify-between"><span className="text-muted">Inversor</span> <span className="font-semibold text-ink">{kitRosen.inversor}</span></li>
+                    <li className="flex justify-between"><span className="text-muted">Paneles</span> <span className="font-semibold text-ink">{kitRosen.paneles}</span></li>
+                    <li className="flex justify-between"><span className="text-muted">Cable</span> <span className="font-semibold text-ink">{kitRosen.cable}</span></li>
+                  </ul>
+                </div>
+
+                <div className="rounded-2xl border border-line bg-panel-2/60 p-5">
+                  <h5 className="text-xs font-semibold uppercase tracking-wider text-muted mb-3">📐 Instalación</h5>
+                  <ul className="text-sm space-y-2">
+                    <li className="flex justify-between"><span className="text-muted">Área de techo</span> <span className="font-semibold text-ink">{kitRosen.areaTecho}</span></li>
+                    <li className="flex justify-between"><span className="text-muted">Peso aprox.</span> <span className="font-semibold text-ink">{kitRosen.peso}</span></li>
+                    <li className="flex justify-between"><span className="text-muted">Autonomía</span> <span className="font-semibold text-ink">{kitRosen.autonomia}</span></li>
+                  </ul>
+                </div>
+
+                <div className="rounded-2xl border border-brand/25 bg-brand/10 p-5">
+                  <h5 className="text-xs font-semibold uppercase tracking-wider text-brand-soft mb-2">💡 Consejo técnico</h5>
+                  <p className="text-sm leading-relaxed text-ink/90">{kitRosen.consejo}</p>
+                </div>
+
+                {kitRosen.notaAdicional && (
+                  <div className="rounded-2xl border border-line bg-panel-2/60 p-5">
+                    <h5 className="text-xs font-semibold uppercase tracking-wider text-muted mb-2">ℹ️ Información importante</h5>
+                    <p className="text-sm leading-relaxed text-ink/80">{kitRosen.notaAdicional}</p>
+                  </div>
+                )}
+
+                <button onClick={enviarAWhatsApp} className="w-full text-sm text-brand-soft hover:text-brand font-medium py-2 transition-colors cursor-pointer">
+                  Enviar este análisis por WhatsApp →
+                </button>
+              </div>
+            ) : (
+              <p className="text-sm text-muted mb-6 leading-relaxed">
+                Selecciona tus cargas y pulsa calcular para recibir una recomendación
+                técnica generada por IA.
+              </p>
+            )}
+
+            <button onClick={consultarIA} disabled={cargandoIA} className="btn-primary w-full text-base disabled:opacity-60 disabled:cursor-not-allowed">
+              {cargandoIA ? "Analizando con IA…" : "Calcular sistema ⚡"}
+            </button>
+          </div>
+
         </div>
       </section>
+
     </div>
   );
 }
