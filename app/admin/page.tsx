@@ -49,7 +49,7 @@ export default function AdminDashboard() {
     }
   };
 
-  const manejarCambio = (e: React.ChangeEvent<HTMLInputElement | React.SelectElement>) => {
+  const manejarCambio = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setNuevoProducto({ ...nuevoProducto, [e.target.name]: e.target.value });
   };
 

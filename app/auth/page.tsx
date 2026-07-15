@@ -14,7 +14,7 @@ export default function AuthPage() {
   });
   const [error, setError] = useState('');
 
-  const manejarCambio = (e: React.ChangeEvent<HTMLInputElement | React.SelectElement>) => {
+  const manejarCambio = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFormulario({ ...formulario, [e.target.name]: e.target.value });
   };
 
